@@ -6,7 +6,7 @@ import CriticalRoutesTable from './components/CriticalRoutesTable'
 import TemporalAnalysis from './components/TemporalAnalysis'
 import AgentProposals from './components/AgentProposals'
 import { CriticalPoint, CriticalRoute, KPI, Proposal } from './types'
-
+import { generateReport } from './utils/report'
 export default function App() {
   const [query, setQuery] = useState('')
   const [points, setPoints] = useState<CriticalPoint[]>([])
@@ -48,7 +48,13 @@ export default function App() {
   return (
     <div className="container">
       <Navbar />
-
+{!loading &&  (
+  <div style={{ margin: '16px 0' }}>
+    <button onClick={() => generateReport({ points, routes, kpi, temporal, proposals })}>
+      Descargar reporte PDF
+    </button>
+  </div>
+)}
       <div className="content">
         <AgentQuery
           kpi={
